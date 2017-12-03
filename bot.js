@@ -4,7 +4,7 @@ let Twitter = new twit(apiData);
 
 function postTweet(tweet) {
     let path = 'statuses/update';
-    Twitter.post(path, tweet, (err, data, response) => console.log(data));
+    Twitter.post(path, tweet, (err, data, response) => console.log("Tweet Posted Successfuly"));
 }
 
 function tweetImage(color) {
@@ -16,13 +16,12 @@ function tweetImage(color) {
     Twitter.post('media/upload', {
         media_data: b64content
     }, (err, data, response) => {
-        console.log('Image uploaded!');
         media_ids = new Array(data.media_id_string);
-        console.log(media_ids)
         const tweetData = generateTweetData(color, media_ids);
+        console.log("Tweeting the color: " + color.hex.combined);
         postTweet(tweetData);
     });
-
+   
 }
 
 function generateTweetData(color, media_ids) {
@@ -47,8 +46,8 @@ function generatePastelTweet() {
     const color = pastelGenerator.generateTweetColor();
     saveColor(color);
 }
-generatePastelTweet();
 
+generatePastelTweet();
 setInterval(() => {
     generatePastelTweet()
-}, 1000 * 60 * 60 * 4)
+}, 21600000)
