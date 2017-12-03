@@ -48,3 +48,7 @@ function generatePastelTweet() {
     saveColor(color);
 }
 generatePastelTweet();
+
+setInterval(() => {
+    generatePastelTweet()
+}, 1000 * 60 * 60 * 4)
