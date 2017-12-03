@@ -49,5 +49,6 @@ function generatePastelTweet() {
 
 generatePastelTweet();
 setInterval(() => {
-    generatePastelTweet()
+    generatePastelTweet();
+    console.log("Running next cycle...");
 }, 21600000)
