@@ -1,0 +1,13 @@
+{
+  "name": "prettypastelbot",
+  "version": "1.0.0",
+  "description": "I tweet Pastel Colors",
+  "main": "bot.js",
+  "repository": "https://github.com/eduardoescoto/prettypastelbot.git",
+  "author": "Eduardo Escoto <eduardo@escoto.me>",
+  "license": "MIT",
+  "dependencies": {
+    "jimp": "^0.2.28",
+    "twit": "^2.2.9"
+  }
+}
