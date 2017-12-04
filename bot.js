@@ -27,7 +27,7 @@ function tweetImage(color) {
 function generateTweetData(color, media_ids) {
     const status = "HEX: " + color.hex.combined + "\r\n" +
         "RGB: (" + color.rgb.red + ", " + color.rgb.green + ", " + color.rgb.blue + ")\r\n" +
-        "HSL: (" + color.hsl.hue.string + ", " + color.hsl.saturation.string + ", " + color.hsl.lightness.string + ")\r\n";
+        "HSL: (" + color.hsl.hueData.string + ", " + color.hsl.saturationData.string + ", " + color.hsl.lightnessData.string + ")\r\n";
     return {
         media_ids,
         status
