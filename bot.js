@@ -1,6 +1,11 @@
+// Created By Eduardo Escoto. This software is open source and useable by anybody wanting to make a bot.
+// Please Credit me when used.
+// Ask me any questions about this code at @e_esc_ on twitter or at @eduardoescoto on github =)
+
 let twit = require('twit');
 let apiData = require('./apiKeys.js');
 let Twitter = new twit(apiData);
+let lastColor;
 
 function postTweet(tweet) {
     let path = 'statuses/update';
@@ -21,34 +26,60 @@ function tweetImage(color) {
         console.log("Tweeting the color: " + color.hex.combined);
         postTweet(tweetData);
     });
-   
+
 }
 
 function generateTweetData(color, media_ids) {
-    const status = "HEX: " + color.hex.combined + "\r\n" +
-        "RGB: (" + color.rgb.red + ", " + color.rgb.green + ", " + color.rgb.blue + ")\r\n" +
-        "HSL: (" + color.hsl.hueData.string + ", " + color.hsl.saturationData.string + ", " + color.hsl.lightnessData.string + ")\r\n";
+    const status =
+        `HEX: ${color.hex.combined}
+RGB: (${color.rgb.red}, ${color.rgb.green}, ${color.rgb.blue})
+HSL: (${color.hsl.hueData.string}, ${color.hsl.saturationData.string}, ${color.hsl.lightnessData.string})`;
     return {
         media_ids,
         status
     }
 }
+
 function saveColor(color) {
     let fs = require('fs');
     let Jimp = require('jimp');
     let image = new Jimp(1200, 900, color.hex.raw);
     image.quality(100);
-    image.write('image.png', () => {console.log('complete'); tweetImage(color)});
+    image.write('image.png', () => {
+        console.log(`Saved image for color ${color.hex.combined}`);
+        tweetImage(color)
+    });
 }
 
 function generatePastelTweet() {
     const pastelGenerator = require('./pastelGenerator.js');
     const color = pastelGenerator.generateTweetColor();
-    saveColor(color);
+    if (compareColorByHue(lastColor, color)) {
+        saveColor(color);
+        lastColor = color;
+    } else {
+        console.log(`Colors too similar colors were: ${lastColor.hex.combined} and ${color.hex.combined}`);
+        generatePastelTweet();
+    }
 }
 
+function compareColorByHue(lastColor, nextColor) {
+    if (lastColor) {
+        const lastHuePercentage = Number((lastColor.hsl.hueData.value / 360).toFixed(5));
+        const nextHuePercentage = Number((nextColor.hsl.hueData.value / 360).toFixed(5));
+        const difference = Math.abs(lastHuePercentage - nextHuePercentage) * 100;
+        if (difference < 15) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return true;
+    }
+}
 generatePastelTweet();
+console.log(`Starting the cycle.`)
 setInterval(() => {
-    generatePastelTweet();
     console.log("Running next cycle...");
-}, 21600000)
+    generatePastelTweet();
+},  1000*60*60*4 );

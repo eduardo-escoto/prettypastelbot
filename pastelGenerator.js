@@ -50,28 +50,39 @@ function getRandomLightnessInRange(min, max) {
         console.log("lightness out of range, retrying...", lightness);
         lightness = Math.random();
     }
-    return lightness.toFixed(3);;
+    return lightness.toFixed(2);
+}
+
+function getRandomSaturationInRange(min, max = 1) {
+    let saturation = Math.random();
+    while (saturation < min || saturation > max) {
+        console.log("saturation out of range, retrying...", saturation);
+        saturation = Math.random();
+    }
+    return saturation.toFixed(2)
 }
 
 function createColor() {
+    const pastelRange = {
+        min: .775,
+        max: .925,
+        satMin: .85,
+        satMax: 1
+    }
     const hue = Math.floor(Math.random() * 360);
     const hueData = {
         string: hue.toString(),
         value: hue
     }
-    const saturation = "100%";
+    const saturation = getRandomSaturationInRange(pastelRange.satMin, pastelRange.satMax);
     const saturationData = {
-        string: saturation,
-        value: 1
-    }
-    const pastelRange = {
-        min: .775,
-        max: .925,
+        string: (saturation * 100).toString() + "%",
+        value: parseInt(saturation * 100) / 100
     }
     const lightness = getRandomLightnessInRange(pastelRange.min, pastelRange.max);
     const lightnessData = {
-        value: parseInt(lightness * 1000) / 1000,
-        string: ((lightness * 100).toFixed(1)).toString() + "%"
+        string: ((lightness * 100).toString() + "%"),
+        value: parseInt(lightness * 100) / 100
     }
     const rgb = hslToRgb(hueData.value, saturationData.value, lightnessData.value);
 
@@ -144,4 +155,3 @@ function hueToRgb(t1, t2, hue) {
         return t1;
     }
 }
-saveColor(createColor());
