@@ -82,4 +82,4 @@ console.log(`Starting the cycle.`)
 setInterval(() => {
     console.log("Running next cycle...");
     generatePastelTweet();
-},  1000*60*60*4 );
+},  10800000);
