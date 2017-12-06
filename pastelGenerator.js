@@ -12,7 +12,7 @@ module.exports = {
 
 function saveColor(color) {
     let Jimp = require('jimp');
-    let image = new Jimp(1200, 900, color.hex.raw);
+    let image = new Jimp(1080, 1920, color.hex.raw);
     image.quality(100);
     image.write('image.png', () => {
         console.log('complete! Created color: ', color);
