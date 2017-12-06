@@ -31,12 +31,12 @@ function tweetImage(color) {
 
 function generateTweetData(color, media_ids) {
     const status =
-        `💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖
-✨ Name of closest color match: ${color.nameData.closestMatchName} ✨
+        `💖💖💖💖💖💖💖💖💖💖💖💖💖💖
+✨ Name: ${color.nameData.closestMatchName} ✨
 🤖 HEX: ${color.hex.combined} 🤖
 👾 RGB: (${color.rgb.red}, ${color.rgb.green}, ${color.rgb.blue}) 👾
 🌸 HSL: (${color.hsl.hueData.string}, ${color.hsl.saturationData.string}, ${color.hsl.lightnessData.string}) 🌸
-💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖`;
+💖💖💖💖💖💖💖💖💖💖💖💖💖💖`;
     return {
         media_ids,
         status
