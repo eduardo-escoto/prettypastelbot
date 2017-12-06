@@ -169,4 +169,3 @@ function hueToRgb(t1, t2, hue) {
         return t1;
     }
 }
-createColor()
