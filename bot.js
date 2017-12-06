@@ -31,9 +31,12 @@ function tweetImage(color) {
 
 function generateTweetData(color, media_ids) {
     const status =
-        `HEX: ${color.hex.combined}
-RGB: (${color.rgb.red}, ${color.rgb.green}, ${color.rgb.blue})
-HSL: (${color.hsl.hueData.string}, ${color.hsl.saturationData.string}, ${color.hsl.lightnessData.string})`;
+        `💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖
+✨ Name of closest color match: ${color.nameData.closestMatchName} ✨
+🤖 HEX: ${color.hex.combined} 🤖
+👾 RGB: (${color.rgb.red}, ${color.rgb.green}, ${color.rgb.blue}) 👾
+🌸 HSL: (${color.hsl.hueData.string}, ${color.hsl.saturationData.string}, ${color.hsl.lightnessData.string}) 🌸
+💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖💖`;
     return {
         media_ids,
         status
@@ -82,4 +85,4 @@ console.log(`Starting the cycle.`)
 setInterval(() => {
     console.log("Running next cycle...");
     generatePastelTweet();
-},  10800000);
+}, 10800000);

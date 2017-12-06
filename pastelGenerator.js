@@ -94,6 +94,12 @@ function createColor() {
         combined: ("#" + toHex(rgb.red) + toHex(rgb.green) + toHex(rgb.blue)).toUpperCase(),
         raw: parseInt("0x" + toHex(rgb.red) + toHex(rgb.green) + toHex(rgb.blue) + "FF", 16)
     }
+    const nameDataArray = getClosestName(hex)
+    const nameData={
+        closestMatchRGB:nameDataArray[0],
+        closestMatchName:nameDataArray[1],
+        closestMatchExactMatch:nameDataArray[2]
+    }
     const hsl = {
         hueData,
         saturationData,
@@ -102,9 +108,17 @@ function createColor() {
     let color = {
         hsl,
         rgb,
-        hex
+        hex,
+        nameData
     }
     return color;
+}
+
+function getClosestName(hex) {
+    let ntc = require('./ntc.js');
+    ntc.ntc.init();
+    let match = ntc.ntc.name(hex.combined);
+    return match;
 }
 
 function hslToRgb(hue, sat, light) {
@@ -155,3 +169,4 @@ function hueToRgb(t1, t2, hue) {
         return t1;
     }
 }
+createColor()
